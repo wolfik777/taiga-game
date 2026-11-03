@@ -3,6 +3,41 @@ import { Material } from '../src/sim/materials';
 import { createWorld, getCell, setCell } from '../src/sim/world';
 import { generateTaiga } from '../src/sim/generator';
 import { stepWorld } from '../src/sim/physics';
+import { canvasPointToCell } from '../src/input';
+import { renderWorld } from '../src/render/canvasRenderer';
+
+describe('canvas-to-world coordinates', () => {
+  const bounds = { left: 10, top: 20, width: 1024, height: 576 };
+
+  it('maps the canvas top-left to cell 0,0', () => {
+    expect(canvasPointToCell(10, 20, bounds, 256, 144)).toEqual({ x: 0, y: 0 });
+  });
+
+  it('maps the inclusive bottom-right pixel to cell 255,143', () => {
+    expect(canvasPointToCell(1033.999, 595.999, bounds, 256, 144)).toEqual({ x: 255, y: 143 });
+  });
+
+  it('rejects points outside the displayed canvas', () => {
+    expect(canvasPointToCell(1034, 596, bounds, 256, 144)).toBeNull();
+  });
+
+  it('includes the world right and bottom edges in the rendered area', () => {
+    const world = createWorld(256, 144);
+    setCell(world, 255, 143, Material.SAND);
+    const drawn: Array<{ x: number; y: number; color: string }> = [];
+    const context = {
+      canvas: { width: 256, height: 144 },
+      fillStyle: '',
+      save(): void {},
+      restore(): void {},
+      fillRect: function (this: { fillStyle: string }, x: number, y: number): void { drawn.push({ x, y, color: this.fillStyle }); },
+    } as unknown as CanvasRenderingContext2D;
+
+    renderWorld(context, world);
+
+    expect(drawn.some((cell) => cell.x === 255 && cell.y === 143 && cell.color === '#d7b873')).toBe(true);
+  });
+});
 
 describe('world grid', () => {
   it('returns stone outside the world and safely ignores out-of-bounds writes', () => {
