@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#14211f" />
+    <title>Тайга — первая буря</title>
+  </head>
+  <body>
+    <div class="frame">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Тайга, начало"><span class="brand-mark">Т</span><span>ТИХАЯ ТАЙГА<small>ПОЛЕВАЯ ЗАПИСЬ · 01</small></span></a>
+        <div class="weather"><span class="weather-dot"></span><span>ПОЗДНЯЯ ОСЕНЬ</span><span class="weather-divider"></span><span>ДЕНЬ <b>+9°</b></span><span class="weather-divider"></span><span>ВЕТЕР <b>СЛАБЫЙ</b></span></div>
+        <button id="reset" class="reset-button" type="button" title="Пересоздать тайгу">НОВЫЙ МИР <span>↻</span></button>
+      </header>
+      <main>
+        <section class="intro"><div><p class="eyebrow">СЕВЕРНАЯ ТАЙГА · 61° 14′ С. Ш.</p><h1>Мир <em>виден.</em></h1></div><p class="intro-note">Первый снег ещё не лёг.<br />Проверьте, как живут частицы.</p></section>
+        <section class="game-card" aria-label="Игровой мир">
+          <div class="canvas-wrap"><canvas id="game" width="960" height="540" aria-label="Пиксельный мир тайги. Щёлкните мышью, чтобы насыпать песок."></canvas>
+            <div class="canvas-label"><span class="live-dot"></span>МИР СИМУЛИРУЕТСЯ</div><div id="fps" class="fps">— FPS</div>
+            <div class="controls-hint"><span class="mouse-icon">＋</span><span>ЩЁЛКНИТЕ, ЧТОБЫ НАСЫПАТЬ ПЕСОК</span><span class="hint-key">ЛКМ</span></div>
+          </div>
+          <div class="legend"><span><i class="swatch grass"></i>МХИ И ТРАВА</span><span><i class="swatch earth"></i>ЗЕМЛЯ</span><span><i class="swatch stone"></i>КАМЕНЬ</span><span><i class="swatch wood"></i>ЛИСТВЕННИЦА</span><span><i class="swatch sand"></i>ПЕСОК</span><span class="legend-right">СИМУЛЯЦИЯ 60 ГЦ</span></div>
+        </section>
+        <section class="footer-note"><span class="note-icon">✳</span><p>Мир построен из клеток. Каждая частица подчиняется простым правилам: песок падает, встречает землю и собирается в небольшие склоны.</p><span class="seed-label">МИР № <b id="seed-label">0001</b></span></section>
+      </main>
+      <footer><span>ТАЁЖНЫЙ ДНЕВНИК</span><span>ФАЗА 01 — МИР ВИДЕН</span><span>ТИШИНА ПЕРЕД БУРЕЙ</span></footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
